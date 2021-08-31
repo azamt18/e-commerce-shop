@@ -34,9 +34,9 @@ namespace API.Controllers
 
 
         [HttpGet("badrequest/{id}")]
-        public ActionResult GetBadRequest(int id)
+        public ActionResult GetNotFoundRequest(int id)
         {
-            return BadRequest(new ApiResponse(400));
+            return Ok();
         }
 
 
@@ -45,7 +45,7 @@ namespace API.Controllers
         {
             var thing = _context.Products.Find(42);
             var thingToReturn = thing.ToString();
-            return Ok();
+            return BadRequest(new ApiResponse(500));
         }
 
     }
