@@ -28,7 +28,7 @@ namespace API
                 x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddApplicationServices();
-            services.AddSwaggerDocumentation();
+            //services.AddSwaggerDocumentation();
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
@@ -59,7 +59,7 @@ namespace API
 
             app.UseCors("CorsPolicy");
 
-            app.UseSwaggerDocumentation();
+            //app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {
