@@ -10,10 +10,12 @@ import {HomeModule} from './home/home.module';
 import {ErrorInterceptor} from './core/interceptors/error.interceptor';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {LoadingInterceptor} from './core/services/loading.interceptor.service';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    // BasketComponent,
   ],
   imports: [
     BrowserModule,
