@@ -11,10 +11,16 @@ import {ErrorInterceptor} from './core/interceptors/error.interceptor';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {LoadingInterceptor} from './core/services/loading.interceptor.service';
 import { BasketComponent } from './basket/basket.component';
+import { LoginComponent } from './account/login/login.component';
+import { RegisterComponent } from './account/register/register.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    RegisterComponent,
     // BasketComponent,
   ],
   imports: [
@@ -24,7 +30,9 @@ import { BasketComponent } from './basket/basket.component';
     HttpClientModule,
     CoreModule,
     HomeModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

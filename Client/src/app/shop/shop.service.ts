@@ -11,26 +11,26 @@ import {IProduct} from '../shared/models/product';
   providedIn: 'root'
 })
 export class ShopService {
-  baseUrl = 'https://localhost:44398/api/'
+  baseUrl = 'https://localhost:44398/api/';
 
   constructor(private http: HttpClient) { }
 
   getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
 
-    if(shopParams.brandId !== 0) {
+    if (shopParams.brandId !== 0) {
       params = params.append('brandId', shopParams.brandId.toString());
     }
 
-    if(shopParams.typeId !== 0) {
+    if (shopParams.typeId !== 0) {
       params = params.append('typeId', shopParams.typeId.toString());
     }
 
-    if(shopParams.sort) {
+    if (shopParams.sort) {
       params = params.append('sort', shopParams.sort);
     }
 
-    if(shopParams.search) {
+    if (shopParams.search) {
       params = params.append('search', shopParams.search);
     }
 
