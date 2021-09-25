@@ -2,6 +2,8 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
+import {environment} from "../src/environments/environment";
+
 const { SpecReporter, StacktraceOption } = require('jasmine-spec-reporter');
 
 /**
@@ -17,7 +19,7 @@ exports.config = {
   },
   directConnect: true,
   SELENIUM_PROMISE_MANAGER: false,
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: environment.apiUrl,
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,

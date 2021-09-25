@@ -39,24 +39,21 @@ namespace API
                 var configuration = ConfigurationOptions.Parse(_configuration.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);
             });
-            
+
+
             services.AddApplicationServices();
+
             services.AddIdentityServices(_configuration);
 
             //services.AddSwaggerDocumentation();
 
-            //services.AddCors(opt =>
-            //{
-            //    opt.AddPolicy("CorsPolicy", policy =>
-            //    {
-            //        policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-            //    });
-            //});
-            services.AddCors(options =>
+            services.AddCors(opt =>
             {
-                options.AddPolicy("AllowAnyCorsPolicy", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,12 +73,11 @@ namespace API
 
             app.UseStaticFiles();
 
+            app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            //app.UseCors("CorsPolicy");
-            app.UseCors("AllowAnyCorsPolicy");
 
             app.UseHttpsRedirection();
 

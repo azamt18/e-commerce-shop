@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections;
-using System.Reflection;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
@@ -16,6 +15,11 @@ namespace Infrastructure.Data
             _context = context;
         }
 
+        public async Task<int> Complete()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
         public void Dispose()
         {
             _context.Dispose();
@@ -23,12 +27,10 @@ namespace Infrastructure.Data
 
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
         {
-            if (_repositories == null)
-            {
-                _repositories = new Hashtable();
-            }
+            if(_repositories == null) _repositories = new Hashtable();
 
             var type = typeof(TEntity).Name;
+
             if (!_repositories.ContainsKey(type))
             {
                 var repositoryType = typeof(GenericRepository<>);
@@ -37,12 +39,7 @@ namespace Infrastructure.Data
                 _repositories.Add(type, repositoryInstance);
             }
 
-            return (IGenericRepository<TEntity>) _repositories[type]; 
-        }
-
-        public async Task<int> Complete()
-        {
-            return await _context.SaveChangesAsync();
+            return (IGenericRepository<TEntity>) _repositories[type];
         }
     }
 }

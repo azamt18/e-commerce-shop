@@ -1,4 +1,4 @@
-﻿using Core.Entities.Identity;
+using Core.Entities.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +10,7 @@ namespace Infrastructure.Identity
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder) 
         {
             base.OnModelCreating(builder);
         }
