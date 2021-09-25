@@ -41,18 +41,22 @@ namespace API
             });
             
             services.AddApplicationServices();
-
             services.AddIdentityServices(_configuration);
-            
+
             //services.AddSwaggerDocumentation();
-            
-            services.AddCors(opt =>
+
+            //services.AddCors(opt =>
+            //{
+            //    opt.AddPolicy("CorsPolicy", policy =>
+            //    {
+            //        policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+            //    });
+            //});
+            services.AddCors(options =>
             {
-                opt.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
-                });
+                options.AddPolicy("AllowAnyCorsPolicy", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +80,10 @@ namespace API
 
             app.UseAuthorization();
 
-            app.UseCors("CorsPolicy");
+            //app.UseCors("CorsPolicy");
+            app.UseCors("AllowAnyCorsPolicy");
+
+            app.UseHttpsRedirection();
 
             //app.UseSwaggerDocumentation();
 

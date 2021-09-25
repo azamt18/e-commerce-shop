@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { IBasket, IBasketItem, Basket, IBasketTotals } from '../shared/models/basket';
 import { map } from 'rxjs/operators';
 import { IProduct } from '../shared/models/product';
-// import { IDeliveryMethod } from '../shared/models/deliveryMethod';
+import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 
 @Injectable({
   providedIn: 'root'
@@ -20,31 +20,16 @@ export class BasketService {
 
   constructor(private http: HttpClient) { }
 
-  createPaymentIntent() {
-    return this.http.post(this.baseUrl + 'payments/' + this.getCurrentBasketValue().id, {})
-      .pipe(
-        map((basket: IBasket) => {
-          this.basketSource.next(basket);
-        })
-      );
+  setShippingPrice(deliveryMethod: IDeliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    this.calculateTotals();
   }
-
-  // setShippingPrice(deliveryMethod: IDeliveryMethod) {
-  //   this.shipping = deliveryMethod.price;
-  //   const basket = this.getCurrentBasketValue();
-  //   basket.deliveryMethodId = deliveryMethod.id;
-  //   basket.shippingPrice = deliveryMethod.price;
-  //   this.calculateTotals();
-  //   this.setBasket(basket);
-  // }
 
   getBasket(id: string) {
     return this.http.get(this.baseUrl + 'basket?id=' + id)
       .pipe(
         map((basket: IBasket) => {
           this.basketSource.next(basket);
-          console.log(this.getCurrentBasketValue());
-          this.shipping = basket.shippingPrice;
           this.calculateTotals();
         })
       );
